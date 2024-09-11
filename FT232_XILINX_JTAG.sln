@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT232_XILINX_JTAG", "FT232_XILINX_JTAG.csproj", "{81A913D2-8874-4A5E-97CA-1DBDC478806B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81A913D2-8874-4A5E-97CA-1DBDC478806B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A913D2-8874-4A5E-97CA-1DBDC478806B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A913D2-8874-4A5E-97CA-1DBDC478806B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A913D2-8874-4A5E-97CA-1DBDC478806B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8F56865-747F-44AC-9735-A29FA52BBA81}
+	EndGlobalSection
+EndGlobal
