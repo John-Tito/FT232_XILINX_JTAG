@@ -1,0 +1,56 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    tags:
+      - 'v*'  # 只在以 "v" 开头的标签推送时触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      Solution_Name: FT232_XILINX_JTAG.sln  # 替换为你的解决方案名
+      Configuration: Release                   # 设置为 Release 或 Debug
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    # 构建解决方案
+    - name: Build the application
+      run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration
+
+    # 创建 ZIP 文件
+    - name: Create ZIP file
+      run: |
+        $zipPath = "ReleasePackage.zip"
+        Compress-Archive -Path "bin/Release/FT232_XILINX_JTAG.exe", "bin/Release/Eep.bin", "bin/Release/FTD2XX_NET.dll" -DestinationPath $zipPath
+
+    # 创建 GitHub Releases
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.ref_name }}             # 使用从标签获取的版本号
+        release_name: Release ${{ github.ref_name }} # 设置发布名称
+        draft: false                                  # 设为 false 以创建真实发布
+        prerelease: false                            # 设为 true 以创建预发布
+
+    # 上传 ZIP 文件
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ReleasePackage.zip                          # ZIP 文件路径
+        asset_name: FT232_XILINX_JTAG-${{ github.ref_name }}.zip    # 使用版本号命名
+        asset_content_type: application/zip
